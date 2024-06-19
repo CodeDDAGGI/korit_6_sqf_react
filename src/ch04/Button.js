@@ -14,14 +14,14 @@
 
 // export default Button;
 
-function Button({ text ,number, setNumber}) {
+function Button({ text ,num, setNumber}) {
   
     const handleClick = () => {
       if(text === "증가"){
-          setNumber(200);
+          setNumber(num + 1);
       }
       if(text === "감소"){
-          setNumber(200);
+          setNumber(num - 1);
       }
     } 
      
