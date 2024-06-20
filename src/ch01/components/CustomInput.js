@@ -8,4 +8,13 @@ CustomInput.defaultProps = {
     value: "빈값"
 }
 
+const pph = CustomInput.ph;
+const dis = CustomInput.disabled;
+const val = CustomInput.value;
+
+console.log(pph);
+console.log(dis);
+console.log(val);
+
+
 export default CustomInput;
