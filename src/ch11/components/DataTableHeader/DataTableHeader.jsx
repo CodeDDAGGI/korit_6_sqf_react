@@ -1,13 +1,22 @@
 import "./style.css";
 
-function DataTableHeader({ mode , setMode }) { // props로 설정해서 넘김
+function DataTableHeader({ mode , setMode , newProduct, setNewProduct, handleAddProduct}) { // props로 설정해서 넘김
     
+
     const handleChangeModeClick = (e) => {
         setMode(parseInt(e.target.value));
     }
 
+    const handleOnChangeClick = (e) => {
+        const {name , value} = e.target;
+        setNewProduct(addProduct => ({
+            ...addProduct,
+            [name] : value
+        }))
+    }
     const handleSubmitClick = () => {
         if(mode === 1){
+            handleAddProduct();
             alert("상품추가") // map
 
         }
@@ -22,10 +31,6 @@ function DataTableHeader({ mode , setMode }) { // props로 설정해서 넘김
         }
         resetMode();
     }
-
-    const handleOnChangeClick = () => {
-
-    }
     
     const handleCancleClick = () => {
         resetMode();
@@ -33,15 +38,18 @@ function DataTableHeader({ mode , setMode }) { // props로 설정해서 넘김
 
     const resetMode = () => {
         setMode(0);
+        setNewProduct({id:0, productName:"", size:"", color:"", price:0});
     }
+
+    const {productName , size , color , price} = newProduct;
 
     return ( 
         <header className="table-header">
             <div className="input-group">
-                <input type="text" disabled={mode === 0 || mode === 3} placeholder="상품명" autoFocus onChange={handleOnChangeClick}/>
-                <input type="text" disabled={mode === 0 || mode === 3} placeholder="사이즈" onChange={handleOnChangeClick} />
-                <input type="text" disabled={mode === 0 || mode === 3} placeholder="색상" onChange={handleOnChangeClick} />
-                <input type="text" disabled={mode === 0 || mode === 3} placeholder="가격" onChange={handleOnChangeClick} />
+                <input type="text" disabled={mode === 0 || mode === 3} placeholder="상품명" autoFocus name="productName" value={productName} onChange={handleOnChangeClick}/>
+                <input type="text" disabled={mode === 0 || mode === 3} placeholder="사이즈" name="size" value={size} onChange={handleOnChangeClick} />
+                <input type="text" disabled={mode === 0 || mode === 3} placeholder="색상" name="color" value={color} onChange={handleOnChangeClick} />
+                <input type="text" disabled={mode === 0 || mode === 3} placeholder="가격" name="price" value={price} onChange={handleOnChangeClick} />
             </div>
             <div>
                 {
