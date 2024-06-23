@@ -3,53 +3,49 @@ import "./App.css";
 import Swal from "sweetalert2";
 
 function App() {
-    const test = {
-        a: "aaa",
-        b: "bbb"
-    }
-    console.log(test["a"]);
 
-    const emptyUser = {
-        username: "",
-        password: "",
-        name: ""
+    const emptyUser ={
+        username: 0,
+        password:"",
+        name:""
     }
-    const [ userList, setUserList ] = useState([]);
-    const [ inputData, setInputData ] = useState({...emptyUser});
 
-    const inputRef = {
+    const [userList , setUserList ] = useState([]);
+    const [inputData , setInputData] = useState({...emptyUser})
+
+    const Ref = {
         username: useRef(),
         password: useRef(),
-        name: useRef(),
+        name: useRef()
     }
 
-    const handleInputKeyDown = (e) => {
-        if(e.keyCode === 13) {
-            const { username, password, name } = inputRef;
-            switch(e.target.name) {
-                case "username":
-                    password.current.focus();
-                    break;
-                case "password":
-                    name.current.focus();
-                    break;
-                case "name":
-                    username.current.focus();
-                    setUserList(userList => [ ...userList, inputData ]);
-                    setInputData({ ...emptyUser });
-                    break;
+    const handleInputKeyDown=(e) =>{
+        if(e.keyCode === 13){
+            const {username, password, name} = Ref;
+
+            switch(e.target.name){
+                case "username" :
+                password.current.focus();
+                break
+                case "password" :
+                name.current.focus();
+                break
+                case "name" :
+                username.current.focus();
+                setUserList(userList=> [...userList,inputData]);
+                setInputData({...emptyUser})
+                break
                 default:
             }
+            
         }
     }
 
     const handleInputChange = (e) => {
-        setInputData(inputData => {
-            return {
-                ...inputData,
-                [e.target.name]: e.target.value
-            }
-        });
+        setInputData({
+            ...inputData,
+            [e.target.name]: e.target.value
+        })
     }
 
     const handleEditClick = (key, index) => {
@@ -107,17 +103,17 @@ function App() {
             onKeyDown={handleInputKeyDown} 
             onChange={handleInputChange}
             value={inputData.username}
-            ref={inputRef.username} />
+            ref={Ref.username} />
         <input name="password" placeholder="비밀번호" 
             onKeyDown={handleInputKeyDown} 
             onChange={handleInputChange}
             value={inputData.password}
-            ref={inputRef.password} />
+            ref={Ref.password} />
         <input name="name" placeholder="이름" 
             onKeyDown={handleInputKeyDown} 
             onChange={handleInputChange}
             value={inputData.name}
-            ref={inputRef.name} />
+            ref={Ref.name} />
 
         {/* 
             3. tbody -> tr묶음을 userList에서 map통해 렌더링
