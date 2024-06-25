@@ -37,27 +37,24 @@ function App() {
     }
 
     useEffect(() => {
-        const lsuserList = localStorage.getItem("userList");
-        setUserData(!lsuserList ? [] : JSON.parse(lsuserList))
+        const lsUserList = localStorage.getItem("userList");
+        setUserData(!lsUserList ? [] : JSON.parse(lsUserList))
     }, []);
 
-    // useEffect(() => {
-        
-
-    // }, [userData]);
+    useEffect(() => {
+        localStorage.setItem("userList", JSON.stringify(userList));
+    },[userList]);
 
     const handleOnClickSave= () => {
         setUserList([
             ...userList,
             {...userData, id:userList.length + 1}
         ]);
-        localStorage.setItem("userList" , 
-            JSON.stringify([...userList, 
-                { ...userData, id: userList.length + 1 }]));
-        setUserData({...emptyUser})
-
-    
-    }
+        // localStorage.setItem("userList" , 
+        //     JSON.stringify([...userList, 
+        //         { ...userData, id: userList.length + 1 }]));
+        setUserData({...emptyUser});
+    };
 
     const handleImgClick = () => {
         Swal.fire({
@@ -75,7 +72,7 @@ function App() {
                     const file = e.target.files[0];
                     const fileReader = new FileReader();
 
-                fileElement.onload = (e) => {
+                    fileReader.onload = (e) => {
                     setSrcImg(e.target.result);
                 };
 
@@ -91,7 +88,7 @@ function App() {
                 <h1>프로필</h1>
                 <div className="profil-container">
                 <div onClick={handleImgClick} className="profil">
-                    <img src={srcImg} alt="프로필사진" />
+                    <img src={srcImg} alt="" />
                 </div>
                 </div>
                 <div className="profil-div">
@@ -100,7 +97,7 @@ function App() {
                     <p>이메일</p>
                     <input name="email" value={userData.email} onChange={handleInputData} onKeyDown={handleKeyDown} ref={Ref.email}/>
                     <div>
-                    <button onClick={handleOnClickSave} ref={Ref.save}>저장</button>
+                    <button className="saveButton" onClick={handleOnClickSave} ref={Ref.save}>저장</button>
                     </div>
                 </div>
             </div>
