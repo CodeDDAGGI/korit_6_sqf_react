@@ -4,9 +4,9 @@ import Swal from "sweetalert2";
 
 function App() {
     const emptyUser = {
-        id:0,
         name:"",
-        email:""
+        email:"",
+        src:""
     }
 
     const Ref ={
@@ -51,12 +51,9 @@ function App() {
             ...userList,
             {...userData, id:userList.length + 1}
         ]);
-        localStorage.setItem("userList" , 
-            JSON.stringify([...userList, 
+        localStorage.setItem("userData" , 
+            JSON.stringify([...userData, 
                 { ...userData, id: userList.length + 1 }]));
-        setUserData({...emptyUser})
-
-    
     }
 
     const handleImgClick = () => {
