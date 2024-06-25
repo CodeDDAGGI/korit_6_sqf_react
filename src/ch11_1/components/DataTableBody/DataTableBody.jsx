@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./style.css";
 
 
-function DataTableBody({ mode, setMode, products , isDeleting, setIsDeleting , setProducts }) {
+function DataTableBody({ mode, setMode, products , isDeleting, setIsDeleting , setProducts ,setEditProductId}) {
     // const [ isChecks, setChecks ] = useState([]);
     const [ viewProducts, setViewProducts ] = useState([]); // 체크확인하려고
     const [ checkedAll, setCheckedAll ] = useState(false);
@@ -16,7 +16,6 @@ function DataTableBody({ mode, setMode, products , isDeleting, setIsDeleting , s
             setCheckedAll(false);
         }
     }, [products, mode])
-
 
     useEffect(() => {
         const checkStates = viewProducts.map(product => product.isChecked);
@@ -32,8 +31,9 @@ function DataTableBody({ mode, setMode, products , isDeleting, setIsDeleting , s
             setProducts([...viewProducts
                 .filter(viewProducts => viewProducts.isChecked === false)
                 .map(viewProducts => {
-                    const { isChecked , ...product } = viewProducts; // viewProducts에서 isChecked를 
-                                                                     //제외한 나머지 속성들만 새로운 객체(product)로 만듬
+                    const { isChecked , ...product } = viewProducts;    // rest문법
+                                                                        // viewProducts에서 isChecked를 
+                                                                        //제외한 나머지 속성들만 새로운 객체(product)로 만듬
                     return product;
                 })
             ]);
@@ -41,6 +41,14 @@ function DataTableBody({ mode, setMode, products , isDeleting, setIsDeleting , s
             setIsDeleting(false);
         }
     },[isDeleting])
+
+    useEffect(() => {
+        if(mode === 2){
+            const [ selectedProduct ] = viewProducts.filter(product => product.isChecked);
+            
+            setEditProductId(!selectedProduct ? 0 : selectedProduct.id);
+        }                   // 최초실행 undefinded
+    },[viewProducts])
 
     // 체크 모두 풀기 // isChecked : false다풀어
     const resetviewProducts = () => {
@@ -62,7 +70,6 @@ function DataTableBody({ mode, setMode, products , isDeleting, setIsDeleting , s
     const handleCheckedChange = (e) => {
 
         if(mode === 2) { // 수정 ( 다중선택 안됨 )
-
             setViewProducts(viewProducts => { // 배열이라서 자기자신을 가져오려면 배열로 리턴해야댐
                 return [ ...viewProducts.map(product => {
                     if(product.id === parseInt(e.target.value)) { // e.target.value = product.id
@@ -92,6 +99,7 @@ function DataTableBody({ mode, setMode, products , isDeleting, setIsDeleting , s
                 }) ]
             });
         }
+        
 
     }
 

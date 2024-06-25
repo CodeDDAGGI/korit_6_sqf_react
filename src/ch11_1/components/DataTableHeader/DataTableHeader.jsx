@@ -1,19 +1,24 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./style.css";
 import Swal from "sweetalert2";
 
-function DataTableHeader({ mode , setMode , setProducts , setIsDeleting , setIsEditing }) {
+function DataTableHeader({ mode , setMode , setProducts ,products , setIsDeleting ,editProductId }) {
 // props로 설정해서 넘김
     // 값을 입력받을 객체값과 input를 만듬
     const emptyProduct = {
-        id:0,
+        id:0, // ""
         productName : "",
         size: "",
         color:"",
         price:""
     };
 
-    const [ inputData , setInputData ] = useState({...emptyProduct})
+    const [ inputData , setInputData ] = useState(...emptyProduct)
+
+    useEffect(() => {
+        const [ product ] = products.filter(product => product.id === editProductId); //[0]; // filter를 걸면 조건에 해당하는 한개만 꺼내옴
+        setInputData(!product ? { ...emptyProduct } : { ...product });
+    } , [editProductId]);
 
     const handleInputChange = (e) => {
         setInputData(inputData => ({          //=> ({}) 객체 리턴
@@ -29,42 +34,42 @@ function DataTableHeader({ mode , setMode , setProducts , setIsDeleting , setIsE
         price:useRef()
     }
     
-    const handleInputKeyDown = (e) => {
-        if(e.keyCode === 13){
-            const nextRef = {
-                productName : inputRef.size,
-                size:inputRef.color,
-                color: inputRef.price,
-                price:inputRef.productName
-            };
-
-            if(nextRef[e.target.name]){
-                nextRef[e.target.name].current.focus();
-            }
-
-            if(e.target.name === "price"){
-                handleSubmitClick();
-            }
-        }
-    }
-
     // const handleInputKeyDown = (e) => {
+    //     const nextRef = {
+    //         productName : inputRef.size,
+    //         size:inputRef.color,
+    //         color: inputRef.price,
+    //         price:inputRef.productName
+    //     };
     //     if(e.keyCode === 13){
-    //         if(e.target.name === "productName"){
-    //             inputRef.size.current.focus();
+
+    //         if(nextRef[e.target.name]){
+    //             nextRef[e.target.name].current.focus();
     //         }
-    //         if(e.target.name === "size"){
-    //             inputRef.color.current.focus();
-    //         }
-    //         if(e.target.name === "color"){
-    //             inputRef.price.current.focus();
-    //         }
+
     //         if(e.target.name === "price"){
     //             handleSubmitClick();
-    //             inputRef.productName.current.focus();
     //         }
     //     }
     // }
+
+    const handleInputKeyDown = (e) => {
+        if(e.keyCode === 13){
+            if(e.target.name === "productName"){
+                inputRef.size.current.focus();
+            }
+            if(e.target.name === "size"){
+                inputRef.color.current.focus();
+            }
+            if(e.target.name === "color"){
+                inputRef.price.current.focus();
+            }
+            if(e.target.name === "price"){
+                handleSubmitClick();
+                inputRef.productName.current.focus();
+            }
+        }
+    }
 
     // useRef 스위치
     // const handleInputKeyDown = (e) => {
@@ -112,16 +117,26 @@ function DataTableHeader({ mode , setMode , setProducts , setIsDeleting , setIsE
         if(mode === 2){
             Swal.fire({
                 title:"상품 정보 수정",
-                text:"정말로 수정하시겠습니까?",
-                showCancelButton:true,
-                confirmButtonText:"수정",
-                confirmButtonColor:"blue",
-                cancelButtonText:"취소"
+                showCancelButton: true,
+                confirmButtonText: "확인",
+                cancelButtonText: "취소",
             }).then(result => {
-                if(result.isConfirmed) {
-                    setIsEditing(true);
+                if(result.isConfirmed){
+                    setProducts(products => [
+                        ...products.map(product => {
+                            if(product.id === editProductId) { 
+                                const { id , ...rest} = inputData;
+                                return {
+                                    ...product, // if조건문에 따라 수정하고자하는 값만 수정됨
+                                    ...rest
+                                }
+                            }
+                            return product;
+                        })
+                    ]);
+                resetMode();
                 }
-            })
+            });
         }
         if(mode === 3){
             Swal.fire({

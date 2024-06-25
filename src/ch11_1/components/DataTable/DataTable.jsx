@@ -8,6 +8,7 @@ function DataTable() {    // 부모
     const [ mode , setMode ] = useState(0); // 0 = 조회 , 1 = 추가 , 2 = 수정, 3 = 삭제
     const [ products , setProducts] = useState([...SAMPLE_PRODUCTS]);
     const [ isDeleting , setIsDeleting ] = useState(false);
+    const [ editProductId , setEditProductId ] = useState(0);
 
     useEffect(() => {
         const lsProducts = localStorage.getItem("products"); // products 키값을 가져옴
@@ -20,8 +21,23 @@ function DataTable() {    // 부모
 
     return ( 
         <div className="table-main-container">
-            <DataTableHeader mode={mode} setMode={setMode} setProducts={setProducts} setIsDeleting={setIsDeleting} />
-            <DataTableBody mode={mode} products={products}  isDeleting={isDeleting} setIsDeleting= {setIsDeleting} setMode={setMode} setProducts={setProducts} />
+            <DataTableHeader 
+                mode={mode} 
+                editProductId={editProductId}
+                products={products}
+                setMode={setMode} 
+                setProducts={setProducts} 
+                setIsDeleting={setIsDeleting}
+            />
+            <DataTableBody 
+                mode={mode} 
+                setMode={setMode} 
+                products={products}  
+                setProducts={setProducts} 
+                isDeleting={isDeleting} 
+                setIsDeleting= {setIsDeleting}
+                setEditProductId={setEditProductId}
+            />
         </div>
      );
 }
