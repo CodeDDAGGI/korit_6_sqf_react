@@ -16,7 +16,6 @@ function App() {
     };
     const [ srcImg , setSrcImg ] = useState("");
     const [ userData , setUserData ] = useState({...emptyUser});
-    const [ userList, setUserList] = useState([]);
 
     const handleInputData = (e) => {
         setUserData({
@@ -37,23 +36,11 @@ function App() {
     }
 
     useEffect(() => {
-        const lsuserList = localStorage.getItem("userList");
-        setUserData(!lsuserList ? [] : JSON.parse(lsuserList))
+        localStorage.getItem("userData");
     }, []);
 
-    // useEffect(() => {
-        
-
-    // }, [userData]);
-
     const handleOnClickSave= () => {
-        setUserList([
-            ...userList,
-            {...userData, id:userList.length + 1}
-        ]);
-        localStorage.setItem("userData" , 
-            JSON.stringify([...userData, 
-                { ...userData, id: userList.length + 1 }]));
+        localStorage.setItem("userData" , JSON.stringify({ ...userData}));
     }
 
     const handleImgClick = () => {
@@ -71,15 +58,15 @@ function App() {
                 fileElement.onchange = (e) => {
                     const file = e.target.files[0];
                     const fileReader = new FileReader();
-
-                fileElement.onload = (e) => {
-                    setSrcImg(e.target.result);
-                };
-
-                fileReader.readAsDataURL(file);
+                    
+                fileReader.onload = (e) => {
+                        ...userData,
+                        {e.target.result}:srcImg
+                    }
+                }
+                }
             }
-            }
-        })
+        )
     }
 
     return ( 
@@ -88,7 +75,7 @@ function App() {
                 <h1>프로필</h1>
                 <div className="profil-container">
                 <div onClick={handleImgClick} className="profil">
-                    <img src={srcImg} alt="프로필사진" />
+                    <img src={srcImg} alt="" />
                 </div>
                 </div>
                 <div className="profil-div">
@@ -97,7 +84,7 @@ function App() {
                     <p>이메일</p>
                     <input name="email" value={userData.email} onChange={handleInputData} onKeyDown={handleKeyDown} ref={Ref.email}/>
                     <div>
-                    <button onClick={handleOnClickSave} ref={Ref.save}>저장</button>
+                    <button className="saveButton" onClick={handleOnClickSave} ref={Ref.save}>저장</button>
                     </div>
                 </div>
             </div>
