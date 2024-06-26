@@ -4,48 +4,49 @@ import Swal from "sweetalert2";
 
 function App() {
     const emptyUser = {
+        id:0,
         name:"",
         email:"",
         src:""
     }
 
-    const Ref ={
-        name: useRef(),
-        email:useRef(),
-        save:useRef()
-    };
-    const [ srcImg , setSrcImg ] = useState("");
-    const [ userData , setUserData ] = useState({...emptyUser});
+    const [ userData, setUserData ] = useState({...emptyUser})
+    const [ userList , setUserList ] = useState([]);
+    const [ srcImg , setSrcImg ] = useState(""); 
 
     const handleInputData = (e) => {
         setUserData({
             ...userData,
-            [e.target.name] : e.target.value
+        [e.target.name]: e.target.value
         })
+    }
+
+    const Ref = {
+        name: useRef(),
+        email:useRef(),
     }
 
     const handleKeyDown = (e) => {
         if(e.keyCode === 13){
             if(e.target.name === "name"){
-                Ref.email.current.focus();
+                Ref.password.current.focus();
             }
-            if(e.target.email ==="email"){
-                Ref.save.current.focus();
-            }
+            if(e.target.password === "password"){
+                Ref.name.current.focus();
+            }        
         }
-    }
+    }   
 
-    useEffect(() => {
-        const lsData = localStorage.getItem("userData");
+    useEffect(()=> {
+        const lsData = localStorage.getItem("userList");
         if(lsData){
-            setUserData(JSON.parse(lsData));
-            setSrcImg(JSON.parse(lsData))
+            const parsedData = JSON.parse(lsData);
+            setUserList(parsedData);
+            if (parsedData.length > 0) {
+                setSrcImg(parsedData[0].src);
+            }
         }
-    }, []);
-
-    const handleOnClickSave= () => {
-        localStorage.setItem("userData" , JSON.stringify({ ...userData , src : srcImg}));
-    }
+    },[])
 
     const handleImgClick = () => {
         Swal.fire({
@@ -57,7 +58,7 @@ function App() {
         }).then(result => {
             if(result.isConfirmed){
                 const fileElement = document.createElement("input");
-                fileElement.setAttribute("type","file");
+                fileElement.setAttribute("type" , "file");
                 fileElement.click();
                 fileElement.onchange = (e) => {
                     const file = e.target.files[0];
@@ -65,16 +66,30 @@ function App() {
                     
                     fileReader.onload = (e) => {
                         setSrcImg(e.target.result);
-                        setUserData({ 
-                            ...userData, 
-                            src: e.target.result });
+                        setUserData(userData => ({
+                            ...userData,
+                            src: e.target.result
+                        }));
                     }
                     fileReader.readAsDataURL(file);
                 }
             }
-            })
+        })
     }
 
+    const handleOnClickSave = (e) => {
+        const newId = userList.length > 0 ? parseInt(userList[userList.length - 1].id) + 1 : 1;
+        const newUser = {
+            ...userData,
+            id: newId
+        };
+        const updatedUserList = [
+            ...userList,
+            newUser
+        ];
+        setUserList(updatedUserList)
+        localStorage.setItem("userList",JSON.stringify(updatedUserList));
+    }
     return ( 
         <div>
             <div className="main">
