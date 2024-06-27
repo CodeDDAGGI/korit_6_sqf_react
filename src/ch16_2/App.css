@@ -80,6 +80,7 @@ html , body {
     margin-top: 20px;
     width: 380px;
     height: 40px;
+    cursor: pointer;
     &:hover {
         background-color: #dbdbdb;
     }

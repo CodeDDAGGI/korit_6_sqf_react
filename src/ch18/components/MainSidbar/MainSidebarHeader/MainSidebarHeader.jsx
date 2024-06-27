@@ -2,11 +2,15 @@
 import { FaBars, FaBook } from "react-icons/fa";
 import MainContainer from "../../MainContainer/MainContainer";
 import * as s from "./style";
+import { MainSidebarShowAtom } from "../../../atoms/mainSidebarShow";
+import { useRecoilState } from "recoil";
 
-function MainSidebarHeader({setMainSidebarShow}) {
+function MainSidebarHeader() {
+    // setter 사용해야하는데 atom으로 전역으로 받음
+    const [ mainSidebarShow , setMainSidebarShow ] = useRecoilState(MainSidebarShowAtom);
+
     const handleMainMenuToggleClick = () => {
         setMainSidebarShow(false);
-        
     }
 
     return (

@@ -40,11 +40,7 @@ function App() {
     useEffect(()=> {
         const lsData = localStorage.getItem("userList");
         if(lsData){
-            const parsedData = JSON.parse(lsData);
-            setUserList(parsedData);
-            if (parsedData.length > 0) {
-                setSrcImg(parsedData[0].src);
-            }
+            setUserList(JSON.parse(lsData));
         }
     },[])
 
@@ -78,17 +74,8 @@ function App() {
     }
 
     const handleOnClickSave = (e) => {
-        const newId = userList.length > 0 ? parseInt(userList[userList.length - 1].id) + 1 : 1;
-        const newUser = {
-            ...userData,
-            id: newId
-        };
-        const updatedUserList = [
-            ...userList,
-            newUser
-        ];
-        setUserList(updatedUserList)
-        localStorage.setItem("userList",JSON.stringify(updatedUserList));
+        const setlsData = localStorage.setItem("userList" );
+        JSON.stringify([setlsData]);
     }
     return ( 
         <div>

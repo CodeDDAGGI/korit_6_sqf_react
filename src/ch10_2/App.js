@@ -72,6 +72,9 @@ function App() {
             }
         })
     }
+    
+    // 배열.map((value , index) => {return}) // 배열안의 값들을 모두 함수 돌려서 새로운 배열에 옮김
+    // 배열.filter((value , index) => {return}) // 배열안의 값을 중 조건에 맞는 것만 새로운 배열에 옮김
 
     const handleDeleteClick = (e) => {
         Swal.fire({
@@ -84,7 +87,7 @@ function App() {
             cancelButtonText: "취소"
         }).then(result => {
             if(result.isConfirmed) {
-                setUserList(userList => [ ...userList.filter((user, index) => index !== parseInt(e.target.value)) ]);
+                setUserList(userList => [ ...userList.filter((user, index) => index !== parseInt(e.target.value))]);
             }
         });
     }
