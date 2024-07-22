@@ -8,7 +8,8 @@
 - React Icons > npm i react-icons
 - Sweetalert2 > npm i sweetalert2
 - 리액트 모달 라이브러리 > npm i --save-dev @types/react-modal
-- npm i axios 
+- npm i axios 리액트 json 자동 변환 라이브러리
+- npm install react-icons 리액트 아이콘 라이브러리
 
 
 ## JSX 자동완성

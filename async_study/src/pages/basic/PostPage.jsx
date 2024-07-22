@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function PostPage() {
 
+//  const { value, setValue, onChange } = useInput();
     const schoolNameInput = useInput();  // 커스텀 훅 (객체)
     const departmentInput = useInput();  // input의 핸들러를 여러개 만들 필요가 없음 
     const gradeInput = useInput(); 
@@ -13,6 +14,7 @@ function PostPage() {
     const phoneNumberInput = useInput();
     const addressInput = useInput();
     const teachernameInput = useInput();
+
 
     const handleSubmit = () => {
         const student = {
@@ -58,6 +60,7 @@ function PostPage() {
         }).catch(error => { // 거부
             console.log(error); // teacher
         }) // finally 항상 실행
+
     }
         
 
@@ -99,7 +102,6 @@ function PostPage() {
                 <p>
                     <button onClick={handleSubmit}>전송</button>
                 </p>
-
                 <h3>선생님 정보</h3>
                 <p>
                     {/* htmlFor :  */}
