@@ -1,0 +1,86 @@
+html , body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(480deg, #dbdbdb , #fad0c4);
+}
+
+.main {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9); 
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.main h1{
+    margin-left: 20px;
+}
+
+.profil-container {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.profil {
+    box-sizing: border-box;
+    width: 250px;
+    height: 250px;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profil > img{
+    box-sizing: border-box;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profil-div{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.profil-div input{
+    /* padding: 10px; */
+    box-sizing: border-box;
+    width: 380px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 20px;
+    &:focus{
+        background-color: rgb(193, 205, 230);
+    }
+}
+
+.profil-div p {
+    margin: 10px;
+    font-size: 20px;
+    border: 0px;
+}
+
+.saveButton {
+    border: 0px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 380px;
+    height: 40px;
+    &:hover {
+        background-color: #dbdbdb;
+    }
+}
