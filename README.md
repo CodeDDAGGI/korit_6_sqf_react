@@ -78,3 +78,6 @@
 Component.jsx파일, style.js파일로 구성 
 - constants 폴더에 들어가는 상수들은 대문자와 스네이크 표기법으로 작성
 - 이벤트 함수명은 handle로 시작해서 이벤트 명으로 끝낸다.
+
+## 서버 요청 코드
+- https://hongong.hanbit.co.kr/http-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C-%ED%91%9C-1xx-5xx-%EC%A0%84%EC%B2%B4-%EC%9A%94%EC%95%BD-%EC%A0%95%EB%A6%AC/

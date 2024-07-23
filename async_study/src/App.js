@@ -8,6 +8,8 @@ import PostPage from "./pages/basic/PostPage";
 import Sidebar from "./component/Sidebar/Sidebar";
 import MainContainer from "./component/MainContainer/MainContainer";
 import MainLayout from "./component/MainLayout/MainLayout";
+import PostPage2 from "./pages/basic/PostPage2";
+import PromisePage from "./pages/basic/PromisePage";
 
 
 
@@ -25,6 +27,8 @@ function App() {
               <Route path="/async/basic/get" element={<GetPage/>} />
               <Route path="/async/basic/put" element={<PutPage/>} />
               <Route path="/async/basic/delete" element={<DeletePage />} />
+              <Route path="/async/basic/post2" element={<PostPage2 />} />
+              <Route path="/async/basic/promise" element={<PromisePage />} />
             </Routes>
           </MainContainer>
       </MainLayout>
