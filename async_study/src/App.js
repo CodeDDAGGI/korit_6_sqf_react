@@ -10,6 +10,7 @@ import MainContainer from "./component/MainContainer/MainContainer";
 import MainLayout from "./component/MainLayout/MainLayout";
 import PostPage2 from "./pages/basic/PostPage2";
 import PromisePage from "./pages/basic/PromisePage";
+import Test from "./pages/basic/Test";
 
 
 
@@ -29,6 +30,7 @@ function App() {
               <Route path="/async/basic/delete" element={<DeletePage />} />
               <Route path="/async/basic/post2" element={<PostPage2 />} />
               <Route path="/async/basic/promise" element={<PromisePage />} />
+              <Route path="/async/basic/test" element={<Test />} />
             </Routes>
           </MainContainer>
       </MainLayout>
