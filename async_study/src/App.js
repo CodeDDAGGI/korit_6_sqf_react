@@ -37,6 +37,7 @@ function App() {
               <Route path="/async/basic/size/register" element={<RegisterSizePage />} />
               <Route path="/async/basic/color/register" element={<RegisterColorPage />} />
               <Route path="/computer" element={<ComputerPage />} />
+              <Route path="/Component" element={<Component />} />
             </Routes>
           </MainContainer>
       </MainLayout>
