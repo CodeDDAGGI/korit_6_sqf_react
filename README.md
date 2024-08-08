@@ -12,6 +12,8 @@
 - npm install react-icons 리액트 아이콘 라이브러리
 - npm i react-modal 리액트 모달창
 
+## 리액트 관련 사이트
+- https://react-select.com/home  셀렉트관련 사이트
 
 ## JSX 자동완성
 - Ctrl + Shift + p 
